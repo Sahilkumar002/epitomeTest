@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import devil.epitomecodetest.MainActivity;
 import devil.epitomecodetest.R;
+import devil.epitomecodetest.fragments.PostDetailsFragment;
+import devil.epitomecodetest.utils.GeneralFunctions;
 import devil.epitomecodetest.webServices.Pojos.Post;
 
 /**
@@ -51,6 +54,11 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostHo
         public PostHolder(View itemView) {
             super(itemView);
             tvPost = itemView.findViewById(R.id.tvPost);
+            tvPost.setOnClickListener(view -> GeneralFunctions.addFragmentWithBackStack(
+                    ((MainActivity) mContext).getFragmentManager(),
+                    PostDetailsFragment.newInstance(list.get(getAdapterPosition())
+                            .getTitle(), list.get(getAdapterPosition()).getBody()),
+                    "Post Details", R.id.flContainer));
         }
     }
 }

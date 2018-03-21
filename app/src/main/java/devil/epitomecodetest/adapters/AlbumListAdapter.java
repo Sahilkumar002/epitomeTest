@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import devil.epitomecodetest.MainActivity;
 import devil.epitomecodetest.R;
+import devil.epitomecodetest.fragments.AlbumDetailsFragment;
+import devil.epitomecodetest.fragments.PostDetailsFragment;
+import devil.epitomecodetest.utils.GeneralFunctions;
 import devil.epitomecodetest.webServices.Pojos.Albums;
 
 /**
@@ -38,16 +42,18 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
 
     }
 
-
     @Override
     public int getItemCount() {
         return list.size();
     }
 
     class AlbumHolder extends RecyclerView.ViewHolder {
-
         public AlbumHolder(View itemView) {
             super(itemView);
+            itemView.findViewById(R.id.flAlbum).setOnClickListener(view -> GeneralFunctions.addFragmentWithBackStack(
+                    ((MainActivity) mContext).getFragmentManager(),
+                    AlbumDetailsFragment.newInstance(list.get(getAdapterPosition()).getId()),
+                    "Album Details", R.id.flContainer));
         }
     }
 }

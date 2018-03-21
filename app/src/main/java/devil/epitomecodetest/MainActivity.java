@@ -18,6 +18,7 @@ import java.util.List;
 import devil.epitomecodetest.adapters.AlbumListAdapter;
 import devil.epitomecodetest.adapters.PostListAdapter;
 import devil.epitomecodetest.adapters.UsersListAdapter;
+import devil.epitomecodetest.utils.GeneralFunctions;
 import devil.epitomecodetest.webServices.Pojos.Albums;
 import devil.epitomecodetest.webServices.Pojos.Post;
 import devil.epitomecodetest.webServices.Pojos.Users;
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements UsersListAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dialog = GeneralFunctions.progressDialog(this);
+
+      /* bind views */
+
         rvUsers = findViewById(R.id.rvUsers);
         rvPosts = findViewById(R.id.rvPosts);
         rvAlbums = findViewById(R.id.rvAlbums);
@@ -53,13 +59,13 @@ public class MainActivity extends AppCompatActivity implements UsersListAdapter.
         mUserAdapter.setUserOnClick(this);
         rvUsers.setAdapter(mUserAdapter);
 
-//        Albums
+        /*Albums*/
         rvAlbums.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mAlbumAdapter = new AlbumListAdapter(this, albumsList);
         rvAlbums.setAdapter(mAlbumAdapter);
 
 
-/* Item Decoration*/
+        /* Item Decoration*/
         DividerItemDecoration itemDecorator = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         itemDecorator.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
         rvPosts.addItemDecoration(itemDecorator);
@@ -67,10 +73,7 @@ public class MainActivity extends AppCompatActivity implements UsersListAdapter.
         mPostListAdapter = new PostListAdapter(this, postList);
         rvPosts.setAdapter(mPostListAdapter);
 
-        dialog = new ProgressDialog(this);
-        dialog.setIndeterminate(false);
-        dialog.setCancelable(false);
-        dialog.setTitle("Loading");
+
         getUsersList();
     }
 

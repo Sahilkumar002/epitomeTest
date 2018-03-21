@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorScreenBack"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16"
+        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_16"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:padding="@dimen/dimen_8"
+            android:text="Post Title"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+        <TextView
+            android:id="@+id/tvBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:padding="@dimen/dimen_8"
+            android:text="Post Body" />
+
+    </LinearLayout>
+</FrameLayout>
