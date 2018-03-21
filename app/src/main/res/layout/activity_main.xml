@@ -103,21 +103,21 @@
                             android:paddingEnd="@dimen/dimen_8"
                             android:paddingStart="@dimen/dimen_8" />
 
-                        <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:padding="@dimen/dimen_16"-->
-                        <!--android:text="Posts"-->
-                        <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />-->
+                        <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimen_16"
+                        android:text="ToDos"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-                        <!--<android.support.v7.widget.RecyclerView-->
-                        <!--android:id="@+id/rvPosts"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:clipToPadding="false"-->
-                        <!--android:nestedScrollingEnabled="false"-->
-                        <!--android:paddingEnd="@dimen/dimen_8"-->
-                        <!--android:paddingStart="@dimen/dimen_8" />-->
+                        <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvToDos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingEnd="@dimen/dimen_8"
+                        android:paddingStart="@dimen/dimen_8" />
 
 
                     </LinearLayout>

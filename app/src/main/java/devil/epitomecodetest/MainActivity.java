@@ -17,9 +17,11 @@ import java.util.List;
 
 import devil.epitomecodetest.adapters.AlbumListAdapter;
 import devil.epitomecodetest.adapters.PostListAdapter;
+import devil.epitomecodetest.adapters.TodoListAdapter;
 import devil.epitomecodetest.adapters.UsersListAdapter;
 import devil.epitomecodetest.utils.GeneralFunctions;
 import devil.epitomecodetest.webServices.Pojos.Albums;
+import devil.epitomecodetest.webServices.Pojos.PojoTodos;
 import devil.epitomecodetest.webServices.Pojos.Post;
 import devil.epitomecodetest.webServices.Pojos.Users;
 import devil.epitomecodetest.webServices.api.RestClient;
@@ -29,7 +31,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements UsersListAdapter.UserOnClick {
 
-    RecyclerView rvUsers, rvPosts, rvAlbums;
+    RecyclerView rvUsers, rvPosts, rvAlbums, rvTodos;
     private UsersListAdapter mUserAdapter;
     LinearLayout llUserData;
     TextView tvSelectUser;
@@ -38,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements UsersListAdapter.
     private List<Post> postList = new ArrayList<>();
     private AlbumListAdapter mAlbumAdapter;
     private List<Albums> albumsList = new ArrayList<>();
+    private TodoListAdapter todoListAdapter;
+    private List<PojoTodos> todosList = new ArrayList<>();
+
     private ProgressDialog dialog;
 
     @Override
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements UsersListAdapter.
         rvUsers = findViewById(R.id.rvUsers);
         rvPosts = findViewById(R.id.rvPosts);
         rvAlbums = findViewById(R.id.rvAlbums);
+        rvTodos = findViewById(R.id.rvToDos);
         llUserData = findViewById(R.id.llUserData);
         tvSelectUser = findViewById(R.id.tvSelectUser);
         rvUsers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -73,7 +79,10 @@ public class MainActivity extends AppCompatActivity implements UsersListAdapter.
         mPostListAdapter = new PostListAdapter(this, postList);
         rvPosts.setAdapter(mPostListAdapter);
 
-
+        rvTodos.addItemDecoration(itemDecorator);
+        rvTodos.setLayoutManager(new LinearLayoutManager(this));
+        todoListAdapter = new TodoListAdapter(this, todosList);
+        rvTodos.setAdapter(todoListAdapter);
         getUsersList();
     }
 
@@ -106,10 +115,10 @@ public class MainActivity extends AppCompatActivity implements UsersListAdapter.
         });
     }
 
-
     @Override
     public void onClickUser(int userId) {
         dialog.show();
+
         RestClient.getClient().getPosts(userId).enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
@@ -163,6 +172,31 @@ public class MainActivity extends AppCompatActivity implements UsersListAdapter.
                 dialog.dismiss();
                 Toast.makeText(MainActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        RestClient.getClient().getTodos(userId).enqueue(new Callback<List<PojoTodos>>() {
+            @Override
+            public void onResponse(Call<List<PojoTodos>> call, Response<List<PojoTodos>> response) {
+                dialog.dismiss();
+                try {
+                    if (response.code() == 200 && response.body() != null) {
+                        tvSelectUser.setVisibility(View.GONE);
+                        llUserData.setVisibility(View.VISIBLE);
+                        todosList.clear();
+                        todosList.addAll(response.body());
+                        todoListAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(MainActivity.this, "API ERROR", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PojoTodos>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import devil.epitomecodetest.webServices.Pojos.Albums;
 import devil.epitomecodetest.webServices.Pojos.PojoPhoto;
+import devil.epitomecodetest.webServices.Pojos.PojoTodos;
 import devil.epitomecodetest.webServices.Pojos.Post;
 import devil.epitomecodetest.webServices.Pojos.Users;
 import retrofit2.Call;
@@ -27,4 +28,8 @@ public interface API {
 
     @GET("photos")
     Call<List<PojoPhoto>> getPhotos(@Query("albumId") Integer albumId);
+
+    @GET("todos")
+    Call<List<PojoTodos>> getTodos(@Query("userId") Integer userId);
+
 }
