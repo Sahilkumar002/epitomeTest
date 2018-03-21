@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EpitomeCodeTest</string>
+    <string name="select_user">Select any user</string>
+    <string name="today_hit">Today\'s Hit</string>
+</resources>
